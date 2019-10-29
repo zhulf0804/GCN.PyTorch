@@ -1,4 +1,21 @@
+import torch
+import torch.nn as nn
 import torch.optim as optim
+
+
+class Loss(nn.Module):
+    def __init__(self):
+        super(Loss, self).__init__()
+        self.loss = nn.CrossEntropyLoss(reduction='none')
+    def forward(self, output, labels, mask):
+        labels = torch.argmax(labels, dim=1)
+        loss = self.loss(output, labels)
+        mask = mask.float()
+        mask /= torch.mean(mask)
+        loss *= mask
+        return torch.mean(loss)
+
+
 def build_optimizer(params, lr):
     opt = optim.Adam(params, lr)
     return opt
@@ -8,5 +25,6 @@ def get_lr():
     pass
 
 
-def get_loss():
-    pass
+def get_loss(output, labels, mask):
+    loss = Loss()
+    return loss(output, labels, mask)

@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+import torch.nn as nn
 import torch.nn.functional as Func
 
 
@@ -18,39 +19,30 @@ def preprocess_adj(A):
     return np.dot(np.dot(D_hat_inv_sqrt, A_hat), D_hat_inv_sqrt)
 
 
-class GCNLayer():
-    def __init__(self):
-        pass
-    def __call__(self, A, F, W):
-        tmp = torch.mm(A, F)
-        return Func.relu(torch.mm(tmp, W))
+class GCNLayer(nn.Module):
+    def __init__(self, in_dim, out_dim, acti=True):
+        super(GCNLayer, self).__init__()
+        self.linear = nn.Linear(in_dim, out_dim)
+        self.acti = acti
+        self.relu = nn.ReLU(inplace=True)
+    def forward(self, F):
+        output = self.linear(F)
+        if not self.acti:
+            return output
+        return self.relu(output)
 
 
-class GCN():
-    def __init__(self, input_dim, hidden_dims, num_classes):
-        self.input_dim = input_dim
-        self.hidden_dims = hidden_dims
-        self.hidden_dims.insert(0, self.input_dim)
-        self.num_classes = num_classes
-        self.gcn_layer = GCNLayer()
-    def __call__(self, A, X):
-        A = torch.from_numpy(preprocess_adj(A))
-        print(A)
-        F = torch.from_numpy(X)
-        for i in range(len(self.hidden_dims)-1):
-            W = torch.randn((self.hidden_dims[i], self.hidden_dims[i+1]), dtype=torch.double, requires_grad=True)
-            F = self.gcn_layer(A, F, W)
-        W = torch.randn((self.hidden_dims[-1], self.num_classes), dtype=torch.double, requires_grad=True)
-        self.outputs = self.gcn_layer(A, F, W)
-        return self.outputs
+class GCN(nn.Module):
+    def __init__(self, input_dim, hidden_dim, num_classes):
+        super(GCN, self).__init__()
+        self.gcn_layer1 = GCNLayer(input_dim, hidden_dim)
+        self.gcn_layer2 = GCNLayer(hidden_dim, num_classes, acti=False)
 
-
-def test_gcn():
-    A = np.random.choice([0, 1], (3000, 3000))
-    X = np.random.randn(3000, 4000)
-    gcn = GCN(4000, [16], 6)
-    y = gcn(A, X)
-    print(y)
-
-if __name__ == '__main__':
-    test_gcn()
+    def forward(self, A, X):
+        A = torch.from_numpy(preprocess_adj(A)).float()
+        X = torch.from_numpy(X).float()
+        F = torch.mm(A, X)
+        F = self.gcn_layer1(F)
+        F = torch.mm(A, F)
+        output = self.gcn_layer2(F)
+        return output

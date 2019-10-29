@@ -54,8 +54,15 @@ def load_data(dataset):
     train_mask = sample_mask(idx_train, labels.shape[0])
     val_mask = sample_mask(idx_val, labels.shape[0])
     test_mask = sample_mask(idx_test, labels.shape[0])
+    zeros = np.zeros(labels.shape)
+    y_train = zeros.copy()
+    y_val = zeros.copy()
+    y_test = zeros.copy()
+    y_train[train_mask, :] = labels[train_mask, :]
+    y_val[val_mask, :] = labels[val_mask, :]
+    y_test[test_mask, :] = labels[test_mask, :]
 
-    return features, labels, adj
+    return adj, features, y_train, y_val, y_test, train_mask, val_mask, test_mask
 
 
 
