@@ -1,20 +1,18 @@
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+
 ## Introduction
 An inofficial PyTorch implementation of [Semi-Supervised Classification with Graph Convolutional Networks](https://arxiv.org/abs/1609.02907).
-
-## Requirements
-+ PyTorch
-+ networkx
-+ TensorboardX
-
 
 ## Datasets
 + citeseer
 + cora
-+ pubmed
-+ NELL
++ pubmed(TBD)
++ NELL(TBD)
 
 ## GCN
+$$F = \sigma(D^{-\frac{1}{2}}AD^{-\frac{1}{2}}\sigma(D^{-\frac{1}{2}}AD^{-\frac{1}{2}}XW)W)$$
 
+$A$ is the adjacency matrix(adding **self-loops**), $D$ is the degree matrix, $X$ is the features, $W$ is the parameters.
 ## Train
 ```
 # usage: python train.py --dataset DATASET
@@ -40,19 +38,34 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
     
     |          | Citeseer(%) | Cora(%) | Pubmed(%) | NELL(%) |
     | :------: | :------: | :------: | :------: | :---: |
-    | this repo|     70.6    |  82.5   |          |
+    | this repo|     70.8    |  82.5   |          |
     |  paper   |     70.3    |  81.5   |  79.0     |  66.0 |
 
 
 + Accuracy curve
+    + citeseer
+        
+        ![](./experiments/citeseer_ac.png)
+        
+    + cora
+    
+        ![](./experiments/cora_ac.png)
 + Loss
+    + citeseer
+        
+        ![](./experiments/citeseer_loss.png)
+        
+    + cora
+        
+        ![](./experiments/cora_loss.png)
+        
 + Dropout and Regularization (**results for training 200 epoches**)
 
     | weight_decay | dropout | train ac(%) | val ac(%) | test ac(%) |
     | :---: | :---: | :---: | :---: | :---:|
     | 5e-3  | 0.7 | 90.8 | 68.4 | 70.1 |
     | 5e-3  | 0.5 | 91.7 | 70.4 | 71.5 |
-    | 5e-3  | 0.2 | 93.3 | 71.0 | 71.8 |
+    | 5e-3  | 0.2 | 93.3 | 71.0 | **71.8** |
     | 5e-3  | 0.0 | 94.2 | 68.8 | 69.6 |
     | 5e-4  | 0.7 | 97.5 | 70.0 | 70.8 |
     | **5e-4** | **0.5** | 98.3 | 70.2 | 70.8 |
@@ -63,13 +76,23 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
     | 5e-5  | 0.2 |100.0 | 68.2 | 69.5 |
     | 5e-5  | 0.0 |100.0 | 67.4 | 68.0 |
     | 0.0   | 0.7 |100.0 | 68.0 | 68.0 |
-    | 0.0   | 0.5 |  |  |  |
-    | 0.0   | 0.2 |  |  |  |
+    | 0.0   | 0.5 |100.0 | 68.0 | 67.6 |
+    | 0.0   | 0.2 |100.0 | 63.8 | 59.7 |
     | 0.0   | 0.0 |100.0 | 64.8 | 63.6 |
     
     **Note:** Bold parameters represents the parameters in the paper.
 
-+ all dropout
++ All GCNLayers with regularization
+
+    |   | gcn1 | gcn2  | accuracy(%) |
+    | :---: | :---: | :---: | :---: | 
+    | experiment| reg  | reg   | 71.9 |
+    | **paper** | reg  | 70.8 |
 
 + Nums of train samples
-+ Others
+
+    | # train samples  | accuracy(%) |
+    | :---: | :---: | 
+    | 120 | 70.8 | 
+    | 240 | 70.6 | 
+    | 360 | 71.5 |

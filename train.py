@@ -27,9 +27,10 @@ optimizer = build_optimizer(model, args.init_lr, args.weight_decay)
 
 
 def train():
-    if not os.path.exists(args.log_dir):
-        os.makedirs(args.log_dir)
-    writer = SummaryWriter(args.log_dir)
+    log_dir = os.path.join(args.log_dir, args.dataset)
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+    writer = SummaryWriter(log_dir)
     saved_checkpoint_dir = os.path.join(args.checkpoint_dir, args.dataset)
     if not os.path.exists(saved_checkpoint_dir):
         os.makedirs(saved_checkpoint_dir)
