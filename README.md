@@ -1,5 +1,3 @@
-<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-
 ## Introduction
 An inofficial PyTorch implementation of [Semi-Supervised Classification with Graph Convolutional Networks](https://arxiv.org/abs/1609.02907).
 
@@ -10,9 +8,9 @@ An inofficial PyTorch implementation of [Semi-Supervised Classification with Gra
 + NELL(TBD)
 
 ## GCN
-$$F = \sigma(D^{-\frac{1}{2}}AD^{-\frac{1}{2}}\sigma(D^{-\frac{1}{2}}AD^{-\frac{1}{2}}XW)W)$$
+![](http://latex.codecogs.com/gif.latex?F=\sigma_2[D^{-\frac{1}{2}}AD^{-\frac{1}{2}}\sigma_1(D^{-\frac{1}{2}}AD^{-\frac{1}{2}}XW_1)W_2])
 
-$A$ is the adjacency matrix(adding **self-loops**), $D$ is the degree matrix, $X$ is the features, $W$ is the parameters.
+A is the adjacency matrix(adding **self-loops**), D is the degree matrix, X is the features, W is the parameters.
 ## Train
 ```
 # usage: python train.py --dataset DATASET
@@ -87,7 +85,7 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
     |   | gcn1 | gcn2  | accuracy(%) |
     | :---: | :---: | :---: | :---: | 
     | experiment| reg  | reg   | 71.9 |
-    | **paper** | reg  | 70.8 |
+    | **paper** | reg  | no-reg | 70.8 |
 
 + Nums of train samples
 
