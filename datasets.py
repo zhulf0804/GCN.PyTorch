@@ -4,18 +4,20 @@ import os
 import pickle
 import torch
 
+
 def process_features(features):
     row_sum_diag = np.sum(features, axis=1)
     row_sum_diag_inv = np.power(row_sum_diag, -1)
     row_sum_diag_inv[np.isinf(row_sum_diag_inv)] = 0.
     row_sum_inv = np.diag(row_sum_diag_inv)
-    return row_sum_inv
+    return np.dot(row_sum_inv, features)
 
 
 def sample_mask(idx, l):
     mask = np.zeros(l)
     mask[idx] = 1
     return np.array(mask, dtype=np.bool)
+
 
 def load_data(dataset):
     ## get data
@@ -61,12 +63,9 @@ def load_data(dataset):
     y_val[val_mask, :] = labels[val_mask, :]
     y_test[test_mask, :] = labels[test_mask, :]
 
-    features = process_features(features)
+    features = torch.from_numpy(process_features(features))
     y_train, y_val, y_test, train_mask, val_mask, test_mask = \
         torch.from_numpy(y_train), torch.from_numpy(y_val), torch.from_numpy(y_test), \
         torch.from_numpy(train_mask), torch.from_numpy(val_mask), torch.from_numpy(test_mask)
 
     return adj, features, y_train, y_val, y_test, train_mask, val_mask, test_mask
-
-
-

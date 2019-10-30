@@ -17,8 +17,16 @@ class Loss(nn.Module):
         return torch.mean(loss)
 
 
-def build_optimizer(params, lr):
-    opt = optim.Adam(params, lr)
+def build_optimizer(model, lr, weight_decay):
+    gcn1, gcn2 = [], []
+    for name, p in model.named_parameters():
+        if 'layer1' in name:
+            gcn1.append(p)
+        else:
+            gcn2.append(p)
+    opt = optim.Adam([{'params': gcn1, 'weight_decay': weight_decay},
+                      {'params': gcn2}
+                      ], lr=lr)
     return opt
 
 
@@ -34,8 +42,8 @@ def get_loss(output, labels, mask):
 def get_accuracy(outputs, labels, mask):
     outputs = torch.argmax(outputs, dim=1)
     labels = torch.argmax(labels, dim=1)
-    outputs = outputs.cpu().numpy()
-    labels = labels.cpu().numpy()
+    outputs = outputs.numpy()
+    labels = labels.numpy()
     correct = outputs == labels
     #print(correct)
     mask = mask.float().numpy()

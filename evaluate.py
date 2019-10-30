@@ -14,7 +14,7 @@ args = parser.parse_args()
 
 
 adj, features, y_train, y_val, y_test, train_mask, val_mask, test_mask = load_data(args.dataset)
-model = GCN(features.shape[1], args.hidden_dim, y_train.shape[1])
+model = GCN(features.shape[1], args.hidden_dim, y_train.shape[1], 1.0)
 
 
 def evaluate(checkpoint):

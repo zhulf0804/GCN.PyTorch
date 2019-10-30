@@ -1,5 +1,4 @@
 import argparse
-import fire
 import os
 import torch
 from datasets import load_data
@@ -10,7 +9,7 @@ from tensorboardX import SummaryWriter
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', type=str, default='citeseer', help='Dataset to train')
-parser.add_argument('--init_lr', type=float, default=0.036, help='Initial learing rate')
+parser.add_argument('--init_lr', type=float, default=0.01, help='Initial learing rate')
 parser.add_argument('--epoches', type=int, default=200, help='Number of traing epoches')
 parser.add_argument('--hidden_dim', type=list, default=16, help='Dimensions of hidden layers')
 parser.add_argument('--dropout', type=float, default=0.5, help='Dropout rate (1 - keep  probability)')
@@ -23,8 +22,8 @@ args = parser.parse_args()
 
 
 adj, features, y_train, y_val, y_test, train_mask, val_mask, test_mask = load_data(args.dataset)
-model = GCN(features.shape[1], args.hidden_dim, y_train.shape[1])
-optimizer = build_optimizer(model.parameters(), args.init_lr)
+model = GCN(features.shape[1], args.hidden_dim, y_train.shape[1], args.dropout)
+optimizer = build_optimizer(model, args.init_lr, args.weight_decay)
 
 
 def train():

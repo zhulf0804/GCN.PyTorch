@@ -35,16 +35,18 @@ class GCNLayer(nn.Module):
 
 
 class GCN(nn.Module):
-    def __init__(self, input_dim, hidden_dim, num_classes):
+    def __init__(self, input_dim, hidden_dim, num_classes, p):
         super(GCN, self).__init__()
         self.gcn_layer1 = GCNLayer(input_dim, hidden_dim)
         self.gcn_layer2 = GCNLayer(hidden_dim, num_classes, acti=False)
+        self.dropout = nn.Dropout(p)
 
     def forward(self, A, X):
         A = torch.from_numpy(preprocess_adj(A)).float()
-        X = torch.from_numpy(X).float()
+        X = self.dropout(X.float())
         F = torch.mm(A, X)
         F = self.gcn_layer1(F)
+        F = self.dropout(F)
         F = torch.mm(A, F)
         output = self.gcn_layer2(F)
         return output
