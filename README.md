@@ -40,22 +40,20 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
     |  paper   |     70.3    |  81.5   |  79.0     |  66.0 |
 
 
-+ Accuracy curve
-    + citeseer
++ Accuracy and Loss curve
+    + citeseer(see experiments/citeseer*.png)
         
-        ![](./experiments/citeseer_ac.png)
+        ```
+        tensorboard --logdir=experiments/citeseer
+        ```
         
-    + cora
+    + cora(see experiments/cora*.png)
     
-        ![](./experiments/cora_ac.png)
-+ Loss
-    + citeseer
-        
-        ![](./experiments/citeseer_loss.png)
-        
-    + cora
-        
-        ![](./experiments/cora_loss.png)
+        ```
+        tensorboard --logdir=experiments/cora
+        ```
+
+
         
 + Dropout and Regularization (**results for training 200 epoches**)
 

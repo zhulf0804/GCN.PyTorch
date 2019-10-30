@@ -22,7 +22,7 @@ def preprocess_adj(A):
 class GCNLayer(nn.Module):
     def __init__(self, in_dim, out_dim, acti=True):
         super(GCNLayer, self).__init__()
-        self.linear = nn.Linear(in_dim, out_dim)
+        self.linear = nn.Linear(in_dim, out_dim) # bias = False is also ok.
         if acti:
             self.acti = nn.ReLU(inplace=True)
         else:
