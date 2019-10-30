@@ -2,8 +2,7 @@ import networkx as nx
 import numpy as np
 import os
 import pickle
-import scipy.sparse as sp
-
+import torch
 
 def process_features(features):
     row_sum_diag = np.sum(features, axis=1)
@@ -61,6 +60,11 @@ def load_data(dataset):
     y_train[train_mask, :] = labels[train_mask, :]
     y_val[val_mask, :] = labels[val_mask, :]
     y_test[test_mask, :] = labels[test_mask, :]
+
+    features = process_features(features)
+    y_train, y_val, y_test, train_mask, val_mask, test_mask = \
+        torch.from_numpy(y_train), torch.from_numpy(y_val), torch.from_numpy(y_test), \
+        torch.from_numpy(train_mask), torch.from_numpy(val_mask), torch.from_numpy(test_mask)
 
     return adj, features, y_train, y_val, y_test, train_mask, val_mask, test_mask
 
