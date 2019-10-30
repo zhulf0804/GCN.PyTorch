@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -28,3 +29,15 @@ def get_lr():
 def get_loss(output, labels, mask):
     loss = Loss()
     return loss(output, labels, mask)
+
+
+def get_accuracy(outputs, labels, mask):
+    outputs = torch.argmax(outputs, dim=1)
+    labels = torch.argmax(labels, dim=1)
+    outputs = outputs.cpu().numpy()
+    labels = labels.cpu().numpy()
+    correct = outputs == labels
+    #print(correct)
+    mask = mask.float().numpy()
+    tp = np.sum(correct * mask)
+    return tp / np.sum(mask)

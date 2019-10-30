@@ -23,13 +23,15 @@ class GCNLayer(nn.Module):
     def __init__(self, in_dim, out_dim, acti=True):
         super(GCNLayer, self).__init__()
         self.linear = nn.Linear(in_dim, out_dim)
-        self.acti = acti
-        self.relu = nn.ReLU(inplace=True)
+        if acti:
+            self.acti = nn.ReLU(inplace=True)
+        else:
+            self.acti = None
     def forward(self, F):
         output = self.linear(F)
         if not self.acti:
             return output
-        return self.relu(output)
+        return self.acti(output)
 
 
 class GCN(nn.Module):
