@@ -52,18 +52,21 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
 
 
 + Accuracy and Loss curve
-    + citeseer(see experiments/citeseer*.png)
+
+    ![](experiments/results.png)
+    
+    + citeseer
         
         ```
         tensorboard --logdir=experiments/citeseer
         ```
         
-    + cora(see experiments/cora*.png)
+    + cora
     
         ```
         tensorboard --logdir=experiments/cora
         ```
-    + pubmed(see experiments/pubmed*.png)
+    + pubmed
         ```
         tensorboard --logdir=experiments/pubmed
         ```
@@ -107,3 +110,4 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
     | 120 | 70.8 | 
     | 240 | 70.6 | 
     | 360 | 71.5 |
+    
