@@ -47,7 +47,7 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
     
     |          | Citeseer(%) | Cora(%) | Pubmed(%) |
     | :------: | :------: | :------: | :------: |
-    | this repo|     70.8    |  82.5   |  79.2     |
+    | **this repo**|     70.8    |  82.5   |  79.2     |
     |  paper   |     70.3    |  81.5   |  79.0     |
 
 
@@ -70,7 +70,7 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
 
 
         
-+ Dropout and Regularization (**results for training 200 epoches**)
++ Dropout and Regularization (**results of citeseer for training 200 epoches**)
 
     | weight_decay | dropout | train ac(%) | val ac(%) | test ac(%) |
     | :---: | :---: | :---: | :---: | :---:|
@@ -93,14 +93,14 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
     
     **Note:** Bold parameters represents the parameters in the paper.
 
-+ All GCNLayers with regularization
++ All GCNLayers with regularization (**results of citeseer for training 200 epoches**)
 
     |   | gcn1 | gcn2  | accuracy(%) |
     | :---: | :---: | :---: | :---: | 
     | experiment| reg  | reg   | 71.9 |
     | **paper** | reg  | no-reg | 70.8 |
 
-+ Nums of train samples
++ Nums of train samples (**results of citeseer for training 200 epoches**)
 
     | # train samples  | accuracy(%) |
     | :---: | :---: | 

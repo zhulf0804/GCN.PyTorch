@@ -5,7 +5,6 @@ from models.gcn import GCN
 from models.utils import get_accuracy
 
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', type=str, default='citeseer', help='Dataset to train')
 parser.add_argument('--hidden_dim', type=list, default=16, help='Dimensions of hidden layers')
@@ -14,7 +13,7 @@ args = parser.parse_args()
 
 
 adj, features, y_train, y_val, y_test, train_mask, val_mask, test_mask = load_data(args.dataset)
-model = GCN(features.shape[1], args.hidden_dim, y_train.shape[1], 1.0)
+model = GCN(features.shape[1], args.hidden_dim, y_train.shape[1], 0)
 
 
 def evaluate(checkpoint):
