@@ -4,8 +4,19 @@ An inofficial PyTorch implementation of [Semi-Supervised Classification with Gra
 ## Datasets
 + citeseer
 + cora
-+ pubmed(TBD)
-+ NELL(TBD)
++ pubmed
+
+| Dataset | Nodes | Edges | Features | Classes |
+| :---: | :---:| :---: | :---: | :---:|
+| Citeseer | 3,327 | 4,732 | 3,703 | 6 |
+| Cora | 2,708 | 5,429 | 1,433 | 7 |
+| Pubmed | 19,717 | 44,338 | 500 | 3 |
+
+**Note:** 
++ There are **15 nodes(without features)** in Citeseer dataset.
++ We use dataset splits provided by [https://github.com/tkipf/gcn](https://github.com/tkipf/gcn)
++ More information see [https://linqs.soe.ucsc.edu/data](https://linqs.soe.ucsc.edu/data)
+
 
 ## GCN
 ![](http://latex.codecogs.com/gif.latex?F=\sigma_2[D^{-\frac{1}{2}}AD^{-\frac{1}{2}}\sigma_1(D^{-\frac{1}{2}}AD^{-\frac{1}{2}}XW_1)W_2])
@@ -34,10 +45,10 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
 ## Experiment results
 + Accuracy 
     
-    |          | Citeseer(%) | Cora(%) | Pubmed(%) | NELL(%) |
-    | :------: | :------: | :------: | :------: | :---: |
-    | this repo|     70.8    |  82.5   |          |
-    |  paper   |     70.3    |  81.5   |  79.0     |  66.0 |
+    |          | Citeseer(%) | Cora(%) | Pubmed(%) |
+    | :------: | :------: | :------: | :------: |
+    | this repo|     70.8    |  82.5   |  79.2     |
+    |  paper   |     70.3    |  81.5   |  79.0     |
 
 
 + Accuracy and Loss curve
@@ -51,6 +62,10 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
     
         ```
         tensorboard --logdir=experiments/cora
+        ```
+    + pubmed(see experiments/pubmed*.png)
+        ```
+        tensorboard --logdir=experiments/pubmed
         ```
 
 
