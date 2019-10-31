@@ -51,7 +51,7 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
     |  paper   |     70.3    |  81.5   |  79.0     |
 
 
-+ Accuracy and Loss curve
++ Accuracy and Loss curve(see experiments/results.png)
 
     ![](experiments/results.png)
     
