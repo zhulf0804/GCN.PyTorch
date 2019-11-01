@@ -71,7 +71,32 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
         tensorboard --logdir=experiments/pubmed
         ```
 
++ T-SNE Visualization
 
+    + citeseer(see experiments/citeseer_vis.png)
+    
+        ![](experiments/citeseer_vis.png)
+        
+        ```
+        python visualize.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.pth
+        ```
+    
+    + cora
+        
+        ![](experiments/cora_vis.png)
+        
+        ```
+        python visualize.py --dataset cora --checkpoint checkpoints/cora/gcn_200.pth
+        ```
+        
+    + pubmed
+    
+        ![](experiments/pubmed_vis.png)
+        
+        ```
+        python visualize.py --dataset pubmed --checkpoint checkpoints/pubmed/gcn_200.pth
+        ```
+        
         
 + Dropout and Regularization (**results of citeseer for training 200 epoches**)
 
