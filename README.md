@@ -81,7 +81,7 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
         python visualize.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.pth
         ```
     
-    + cora
+    + cora(see experiments/cora_vis.png)
         
         ![](experiments/cora_vis.png)
         
@@ -89,7 +89,7 @@ python evaluate.py --dataset citeseer --checkpoint checkpoints/citeseer/gcn_200.
         python visualize.py --dataset cora --checkpoint checkpoints/cora/gcn_200.pth
         ```
         
-    + pubmed
+    + pubmed(see experiments/pubmed_vis.png)
     
         ![](experiments/pubmed_vis.png)
         

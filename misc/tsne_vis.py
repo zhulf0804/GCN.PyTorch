@@ -13,7 +13,7 @@ sns.set_context("notebook", font_scale=1.5,
 
 
 # Random state.
-RS = 20150101
+RS = 20191101
 
 
 def tsne_vis(x, y, labels, title, name='tsne', saved_dir='experiments'):
