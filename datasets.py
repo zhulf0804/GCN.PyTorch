@@ -62,7 +62,6 @@ def load_data(dataset):
     y_train[train_mask, :] = labels[train_mask, :]
     y_val[val_mask, :] = labels[val_mask, :]
     y_test[test_mask, :] = labels[test_mask, :]
-
     features = torch.from_numpy(process_features(features))
     y_train, y_val, y_test, train_mask, val_mask, test_mask = \
         torch.from_numpy(y_train), torch.from_numpy(y_val), torch.from_numpy(y_test), \
